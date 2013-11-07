@@ -1,5 +1,7 @@
 package UI;
 
+import Engine.Engine;
+import Engine.GameBoard;
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,14 +14,18 @@ public class BasicFrame extends JFrame {
         setResizable(false);
         
         Canvas canvas = new Canvas();
-        canvas.setBackground(Color.GRAY);
-        canvas.setPreferredSize(new Dimension(500, 500));
+        canvas.setBackground(Color.BLACK);
+        canvas.setPreferredSize(new Dimension(GameBoard.MAP_SIZE * GameBoard.TILE_SIZE,
+                GameBoard.MAP_SIZE * GameBoard.TILE_SIZE));
         
         add(canvas);
         
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        
+        Engine engine = new Engine(canvas);
+        engine.start();
     }
     
 }
