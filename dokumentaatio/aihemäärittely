@@ -1,0 +1,9 @@
+Aihemäärittely
+
+Ohjelmoinnin harjoitustyö-kurssia varten suoritettava projekti. Projektiksi olen valinnut tehtäväksi matopeli-sovelluksen. Sovellus tulee koostumaan logiikkamoottorista, käyttöliittymästä, äänistä.
+Käyttäjät
+
+Käyttäjiä ovat sovelluksen pelaajia, joilla on kaikilla samat oikeudet. Pelaajat pystyvät pelaamaan matopelia itseään, vaihtamaan pelin vaikeustasoa (ja muita asetuksia, kuten mute-toiminto jne.).
+Muuta
+
+Tarkoituksena on käyttää Ohjelmoinnin kursseilla opittuja asioita ja myös perehtyä hieman syvemmin asioihin, jotka käytiin vain lyhyeesti läpi kursseilla (kuten graafinen käyttöliittymä).
