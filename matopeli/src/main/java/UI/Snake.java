@@ -22,6 +22,19 @@ public class Snake {
         UP, DOWN, LEFT, RIGHT, NONE
     }
     
+    public void setDirection(suunta suunta){
+        if(suunta.equals(suunta.UP) && current.equals(suunta.DOWN)){
+            return;
+        }else if(suunta.equals(suunta.DOWN) && current.equals(suunta.UP)){
+            return;
+        }else if(suunta.equals(suunta.LEFT) && current.equals(suunta.RIGHT)){
+            return;
+        }else if(suunta.equals(suunta.RIGHT) && current.equals(suunta.LEFT)){
+            return;
+        }
+        this.temp = suunta;
+    }
+    
     public void resetSnake(){
         this.current = suunta.NONE;
         this.temp = suunta.NONE;

@@ -20,7 +20,7 @@ public class GameBoard {
         }
     }    
     
-    public GameBoard(){
+    public GameBoard(Engine engine){
         tiles = new Tile[MAP_SIZE*MAP_SIZE];
         resetBoard();
     }
