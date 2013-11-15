@@ -115,7 +115,37 @@ public class Engine extends JFrame {
     }
     
     public void resetPeli(){
+        this.onkoHavinnyt = false;
+        this.onkoUusiPeli = false;
         
+        this.pisteet = 0;
+        this.hedelmatSyoty = 0;
+        
+        mato.clear();
+        
+        board.tyhjennaBoard();
+        
+        suunnat.clear();
+        suunnat.add(Suunta.North);
+    }
+    
+    public boolean onkoUusiPeli(){
+        return onkoUusiPeli;
+    }
+    public boolean onkoHavinnyt(){
+        return onkoHavinnyt;
+    }
+    public boolean onkoPause(){
+        return onkoPause;
+    }
+    public int getPisteet(){
+        return pisteet;
+    }
+    public int getHedelmat(){
+        return hedelmatSyoty;
+    }
+    public Suunta getSuunta(){
+        return suunnat.peek();
     }
 }    
     
