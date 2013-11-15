@@ -27,14 +27,13 @@ public class EngineTest extends TestCase {
     }
 
     /**
-     * Test of startPeli method, of class Engine.
+     * Onko peli alussa uusi.
      */
-    public void testStartPeli() {
+    public void testOnkoUusiPeli() {
         System.out.println("startPeli");
         Engine instance = new Engine();
-        instance.startPeli();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertFalse("Pelin pitäisi olla tägätty uudeksi peliksi pelin käynnistyessä",
+                instance.onkoUusiPeli());
     }
 
     /**
@@ -44,7 +43,11 @@ public class EngineTest extends TestCase {
         System.out.println("resetPeli");
         Engine instance = new Engine();
         instance.resetPeli();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertFalse("Uusipeli-tägi pitäisi olla false resetoinnin yhteydessä", instance.onkoUusiPeli());
+        assertFalse("Hävinnyt-tägi pitäisi olla false resetoinnin yhteydessä", instance.onkoHavinnyt());
+        assertEquals("Hedelmien pitäisi olla resetoinnit jälkeen 0 ja nyt oli "+instance.getHedelmat(),
+                0, instance.getHedelmat());
+        assertEquals("Pisteiden pitäisi olla resetoinnin jälkeen 0 ja nyt oli "+instance.getPisteet(),
+                0, instance.getPisteet());
     }
 }

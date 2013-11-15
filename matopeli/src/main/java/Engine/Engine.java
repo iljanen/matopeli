@@ -121,12 +121,12 @@ public class Engine extends JFrame {
         this.pisteet = 0;
         this.hedelmatSyoty = 0;
         
-        mato.clear();
+        //mato.clear();
         
         board.tyhjennaBoard();
         
-        suunnat.clear();
-        suunnat.add(Suunta.North);
+        //suunnat.clear();
+        //suunnat.add(Suunta.North);
     }
     
     public boolean onkoUusiPeli(){
