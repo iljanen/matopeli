@@ -1,9 +1,15 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Engine;
 
-import java.awt.event.KeyEvent;
 import junit.framework.TestCase;
 
+/**
+ *
+ * @author Ilja
+ */
 public class EngineTest extends TestCase {
     
     public EngineTest(String testName) {
@@ -21,16 +27,23 @@ public class EngineTest extends TestCase {
     }
 
     /**
-     * Test of keyPressed method, of class Engine.
+     * Test of startPeli method, of class Engine.
      */
+    public void testStartPeli() {
+        System.out.println("startPeli");
+        Engine instance = new Engine();
+        instance.startPeli();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 
     /**
-     * Test of start method, of class Engine.
+     * Test of resetPeli method, of class Engine.
      */
-    public void testStart() {
-        System.out.println("start");
-        Engine instance = null;
-        instance.startPeli();
+    public void testResetPeli() {
+        System.out.println("resetPeli");
+        Engine instance = new Engine();
+        instance.resetPeli();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

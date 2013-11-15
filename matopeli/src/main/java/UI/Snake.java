@@ -1,7 +1,6 @@
 package UI;
 
-import Engine.GameBoard;
-import Engine.GameBoard.Tile;
+import UI.GameBoard.Tile;
 import java.awt.*;
 import java.util.LinkedList;
 

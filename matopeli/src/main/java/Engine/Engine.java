@@ -1,5 +1,6 @@
 package Engine;
 
+import UI.GameBoard;
 import java.util.LinkedList;
 import java.util.Random;
 import java.awt.*;
