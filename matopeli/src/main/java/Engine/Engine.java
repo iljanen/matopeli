@@ -1,6 +1,7 @@
 package Engine;
 
 import UI.GameBoard;
+import UI.RuutuTyyli;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
@@ -114,8 +115,78 @@ public class Engine extends JFrame {
         kello.setPause(true);
         
         while(true){
+            long aloita = System.nanoTime();
+            kello.update();
             
+            if(kello.muutaKierrosMaara()){
+                paivitaPeli();
+            }
+            
+            board.repaint();
+            
+            long delta = (System.nanoTime() - aloita) / 1000000L;
+            if(delta < FRAME_TIME){
+                try{
+                    Thread.sleep(FRAME_TIME - delta);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
+    }
+    
+    private void paivitaPeli(){
+        RuutuTyyli tormays = paivitaMato();
+        
+        if(tormays == RuutuTyyli.Hedelma){
+            hedelmatSyoty++;
+            pisteet ++;
+            
+        }else if(tormays == RuutuTyyli.MatoBody){
+            onkoHavinnyt = true;
+            kello.setPause(true);
+        }
+    }
+    
+    private RuutuTyyli paivitaMato(){
+        Suunta suunta = suunnat.peekFirst();
+        
+        Point head = new Point(mato.peekFirst());
+        switch(suunta){
+            case North:
+                head.y--;
+                break;
+            case East:
+                head.x++;
+                break;
+            case West:
+                head.x--;
+                break;
+            case South:
+                head.y++;
+                break;
+        }
+        
+        if(head.x < 0 || head.x >= GameBoard.KOLUMNIT || head.y < 0 || head.y >= GameBoard.RIVIT){
+            return RuutuTyyli.MatoBody;
+        }
+        
+        RuutuTyyli edellinen = board.getTyyli(head.x, head.y); 
+        if(edellinen != RuutuTyyli.Hedelma && mato.size() > MIN_MATO_PITUUS){
+            Point hanta = mato.removeFirst();
+            board.taytaRuutu(hanta, null);
+            edellinen = board.getTyyli(head.x, head.y);
+        }
+        
+        if(edellinen != RuutuTyyli.MatoBody){
+            board.taytaRuutu(mato.peekFirst(), RuutuTyyli.MatoBody);
+            mato.push(head);
+            board.taytaRuutu(head, RuutuTyyli.MatoHead);
+            if(suunnat.size() > 1){
+                suunnat.poll();
+            }
+        }
+        return edellinen;
     }
     
     public void resetPeli(){
@@ -125,12 +196,18 @@ public class Engine extends JFrame {
         this.pisteet = 0;
         this.hedelmatSyoty = 0;
         
-        //mato.clear();
+        Point head = new Point(GameBoard.KOLUMNIT / 2, GameBoard.RIVIT / 2);
+        
+        mato.clear();
+        mato.add(head);
         
         board.tyhjennaBoard();
+        board.taytaRuutu(head, RuutuTyyli.MatoHead);
         
-        //suunnat.clear();
-        //suunnat.add(Suunta.North);
+        suunnat.clear();
+        suunnat.add(Suunta.North);
+        
+        kello.reset();
     }
     
     public boolean onkoUusiPeli(){
