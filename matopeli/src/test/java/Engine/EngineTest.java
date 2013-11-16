@@ -4,6 +4,8 @@
  */
 package Engine;
 
+import UI.GameBoard;
+import java.awt.Point;
 import junit.framework.TestCase;
 
 /**
@@ -50,5 +52,13 @@ public class EngineTest extends TestCase {
                 0, instance.getHedelmat());
         assertEquals("Pisteiden pitäisi olla resetoinnin jälkeen 0 ja nyt oli "+instance.getPisteet(),
                 0, instance.getPisteet());
+    }
+    
+    public void testMadonPaaKeskella() {
+        System.out.println("MadonPääKeskelläUudenPelinAlkaessa?");
+        Engine engine = new Engine();
+        engine.resetPeli();
+        Point apu = new Point(GameBoard.KOLUMNIT /2, GameBoard.RIVIT / 2);
+        assertEquals(apu, engine.getSijainti());
     }
 }

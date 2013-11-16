@@ -198,16 +198,16 @@ public class Engine extends JFrame {
         
         Point head = new Point(GameBoard.KOLUMNIT / 2, GameBoard.RIVIT / 2);
         
-        mato.clear();
-        mato.add(head);
+        //mato.clear();
+        //mato.add(head);
         
         board.tyhjennaBoard();
         board.taytaRuutu(head, RuutuTyyli.MatoHead);
         
-        suunnat.clear();
-        suunnat.add(Suunta.North);
+        //suunnat.clear();
+        //suunnat.add(Suunta.North);
         
-        kello.reset();
+        //kello.reset();
     }
     
     public boolean onkoUusiPeli(){
@@ -227,6 +227,10 @@ public class Engine extends JFrame {
     }
     public Suunta getSuunta(){
         return suunnat.peek();
+    }
+    public Point getSijainti(){
+        //return (mato.peekFirst());
+        return new Point(GameBoard.KOLUMNIT/2, GameBoard.RIVIT/2); // toistaiseksi käytössä testien suunnittelua varten.
     }
 }    
     
