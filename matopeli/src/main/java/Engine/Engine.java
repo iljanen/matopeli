@@ -1,10 +1,10 @@
 package Engine;
 
 import UI.GameBoard;
-import java.util.LinkedList;
-import java.util.Random;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedList;
+import java.util.Random;
 import javax.swing.JFrame;
 
 public class Engine extends JFrame {
@@ -12,6 +12,7 @@ public class Engine extends JFrame {
     private static long FRAME_TIME = 1000L / 50L;
     private static int MIN_MATO_PITUUS = 4;
     private static int MAX_SUUNNAT = 3;
+    private Kello kello;
     private GameBoard board;
     private Random random;
     private boolean onkoUusiPeli;
@@ -30,7 +31,7 @@ public class Engine extends JFrame {
         
         this.board = new GameBoard(this);
         
-        //add(board, BorderLayout.CENTER);
+        add(board, BorderLayout.CENTER);
         
         addKeyListener(new KeyAdapter() {
             @Override
@@ -108,6 +109,9 @@ public class Engine extends JFrame {
         this.mato = new LinkedList<Point>();
         this.suunnat = new LinkedList<Suunta>();
         this.onkoUusiPeli = true;
+        this.kello = new Kello(9.0f);
+        
+        kello.setPause(true);
         
         while(true){
             

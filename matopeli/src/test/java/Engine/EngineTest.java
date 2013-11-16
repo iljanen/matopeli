@@ -29,15 +29,16 @@ public class EngineTest extends TestCase {
     /**
      * Onko peli alussa uusi.
      */
+    
     public void testOnkoUusiPeli() {
-        System.out.println("startPeli");
+        System.out.println("OnkoUusiPeli?");
         Engine instance = new Engine();
         assertFalse("Pelin pitäisi olla tägätty uudeksi peliksi pelin käynnistyessä",
                 instance.onkoUusiPeli());
     }
 
     /**
-     * Test of resetPeli method, of class Engine.
+     * Resetoituuko kaikki?
      */
     public void testResetPeli() {
         System.out.println("resetPeli");
