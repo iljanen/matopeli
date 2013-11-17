@@ -1,7 +1,19 @@
-
 package UI;
 
+import java.awt.*;
 
 public enum RuutuTyyli {
-    Hedelma, MatoHead, MatoBody
+    Hedelma("fruit.png"), 
+    
+    MatoHead, 
+    
+    MatoBody;
+    
+    private RuutuTyyli(){
+        
+    }
+    
+    private RuutuTyyli(String imageName){
+        
+    }
 }

@@ -37,7 +37,7 @@ public class Kello {
         this.viimeisinPaivitys = tamaPaivitys;
     }
     
-    private static final long getAika(){
+    private static long getAika(){
         return (System.nanoTime()/1000000L);
     }
     

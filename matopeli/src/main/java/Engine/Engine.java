@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 public class Engine extends JFrame {
     
     private static long FRAME_TIME = 1000L / 50L;
-    private static int MIN_MATO_PITUUS = 4;
+    private static int MIN_MATO_PITUUS = 5;
     private static int MAX_SUUNNAT = 3;
     private Kello kello;
     private GameBoard board;
@@ -23,6 +23,17 @@ public class Engine extends JFrame {
     private LinkedList<Suunta> suunnat;
     private int pisteet;
     private int hedelmatSyoty;
+    
+    protected Engine(LinkedList<Point> mato, LinkedList<Suunta> suunnat){
+        this.mato = mato;       
+        this.suunnat = suunnat;
+        this.kello = new Kello(9.0f);
+        this.board = new GameBoard(this);
+        this.onkoUusiPeli = true;
+        this.onkoHavinnyt = false;
+        this.pisteet = 0;
+        this.hedelmatSyoty = 0;
+    }
     
     public Engine(){
         super("Matopeli!");
@@ -89,6 +100,7 @@ public class Engine extends JFrame {
                     case KeyEvent.VK_P:
                         if(!onkoHavinnyt){
                             onkoPause = !onkoPause;
+                            kello.setPause(onkoPause);
                         }
                         break;
                         
@@ -111,7 +123,7 @@ public class Engine extends JFrame {
         this.suunnat = new LinkedList<Suunta>();
         this.onkoUusiPeli = true;
         this.kello = new Kello(9.0f);
-        
+               
         kello.setPause(true);
         
         while(true){
@@ -136,19 +148,20 @@ public class Engine extends JFrame {
     }
     
     private void paivitaPeli(){
+        
         RuutuTyyli tormays = paivitaMato();
         
         if(tormays == RuutuTyyli.Hedelma){
             hedelmatSyoty++;
             pisteet ++;
-            
+            uusiHedelma();
         }else if(tormays == RuutuTyyli.MatoBody){
             onkoHavinnyt = true;
             kello.setPause(true);
         }
     }
     
-    private RuutuTyyli paivitaMato(){
+    public RuutuTyyli paivitaMato(){
         Suunta suunta = suunnat.peekFirst();
         
         Point head = new Point(mato.peekFirst());
@@ -173,7 +186,7 @@ public class Engine extends JFrame {
         
         RuutuTyyli edellinen = board.getTyyli(head.x, head.y); 
         if(edellinen != RuutuTyyli.Hedelma && mato.size() > MIN_MATO_PITUUS){
-            Point hanta = mato.removeFirst();
+            Point hanta = mato.removeLast();
             board.taytaRuutu(hanta, null);
             edellinen = board.getTyyli(head.x, head.y);
         }
@@ -198,16 +211,47 @@ public class Engine extends JFrame {
         
         Point head = new Point(GameBoard.KOLUMNIT / 2, GameBoard.RIVIT / 2);
         
-        //mato.clear();
-        //mato.add(head);
+        if(mato.isEmpty()){
+            mato.add(head);
+        }else{
+            mato.clear();
+            mato.add(head);
+        }
+        
+        
         
         board.tyhjennaBoard();
         board.taytaRuutu(head, RuutuTyyli.MatoHead);
         
-        //suunnat.clear();
-        //suunnat.add(Suunta.North);
+        if(suunnat.isEmpty()){
+            suunnat.add(Suunta.North);
+        }else{
+            suunnat.clear();
+            suunnat.add(Suunta.North);
+        }      
         
-        //kello.reset();
+        kello.reset();
+        
+        uusiHedelma();
+    }
+    
+    private void uusiHedelma(){
+        
+        int indeksi = random.nextInt(GameBoard.KOLUMNIT * GameBoard.RIVIT - mato.size());
+        
+        int tyhjaRuutuLoytyi = -1;
+        
+        for(int x = 0; x < GameBoard.KOLUMNIT; x++){
+            for(int y = 0; y < GameBoard.RIVIT; y++){
+                RuutuTyyli tyyli = board.getTyyli(x, y);
+                if(tyyli == null || tyyli == RuutuTyyli.Hedelma){
+                    if(++tyhjaRuutuLoytyi == indeksi){
+                        board.taytaRuutu(x, y, RuutuTyyli.Hedelma);
+                        break;
+                    }
+                }
+            }
+        }
     }
     
     public boolean onkoUusiPeli(){
@@ -229,8 +273,7 @@ public class Engine extends JFrame {
         return suunnat.peek();
     }
     public Point getSijainti(){
-        //return (mato.peekFirst());
-        return new Point(GameBoard.KOLUMNIT/2, GameBoard.RIVIT/2); // toistaiseksi käytössä testien suunnittelua varten.
+        return (mato.peekFirst());
     }
 }    
     
