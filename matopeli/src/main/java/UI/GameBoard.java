@@ -122,11 +122,11 @@ public class GameBoard extends JPanel {
         }
     }
     
-    public void taytaRuutu(Point piste, RuutuTyyli tyyli){
-        taytaRuutu(piste.x, piste.y, tyyli);
+    public void setRuutu(Point piste, RuutuTyyli tyyli){
+        setRuutu(piste.x, piste.y, tyyli);
     }
     
-    public void taytaRuutu(int x, int y, RuutuTyyli tyyli){
+    public void setRuutu(int x, int y, RuutuTyyli tyyli){
         ruudut[y * RIVIT + x] = tyyli;
     }
     

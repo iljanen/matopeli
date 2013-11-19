@@ -2,12 +2,9 @@
 package UI;
 
 import Engine.Engine;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -33,15 +30,12 @@ public class GameBoardTest {
     /**
      * Test of paintComponent method, of class GameBoard.
      */
-    @Test
-    public void testPaintComponent() {
-        System.out.println("paintComponent");
-        Graphics graph = null;
-        GameBoard instance = null;
-        instance.paintComponent(graph);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testPaintComponent() {
+//        System.out.println("paintComponent");
+//        Graphics graph = engine.getGraphics();
+//        board.paintComponent(graph);
+//    }
 
     /**
      * Test of piirraRuutu method, of class GameBoard.
@@ -49,14 +43,11 @@ public class GameBoardTest {
     @Test
     public void testPiirraRuutu() {
         System.out.println("piirraRuutu");
-        int x = 0;
-        int y = 0;
-        RuutuTyyli tyyli = null;
-        Graphics graph = null;
-        GameBoard instance = null;
-        instance.piirraRuutu(x, y, tyyli, graph);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int x = 3;
+        int y = 4;
+        Graphics graph = engine.getGraphics();
+        board.piirraRuutu(x, y, RuutuTyyli.Hedelma, graph);
+        assertEquals(Color.ORANGE, graph.getColor());
     }
 
     /**
@@ -65,8 +56,8 @@ public class GameBoardTest {
     @Test
     public void testTyhjennaBoard() {
         System.out.println("tyhjennaBoard");
-        board.taytaRuutu(2, 3, RuutuTyyli.Hedelma);
-        board.taytaRuutu(3, 6, RuutuTyyli.Hedelma);
+        board.setRuutu(2, 3, RuutuTyyli.Hedelma);
+        board.setRuutu(3, 6, RuutuTyyli.Hedelma);
         board.tyhjennaBoard();
         assertEquals(null, board.getTyyli(2, 3));
         assertEquals(null, board.getTyyli(3, 6));
@@ -80,7 +71,7 @@ public class GameBoardTest {
         System.out.println("taytaRuutu");
         Point piste = new Point(1, 1);
         RuutuTyyli tyyli = RuutuTyyli.MatoHead;        
-        board.taytaRuutu(piste, tyyli);
+        board.setRuutu(piste, tyyli);
         assertEquals(RuutuTyyli.MatoHead, board.getTyyli(1, 1));
         board.tyhjennaBoard();
     }
@@ -94,7 +85,7 @@ public class GameBoardTest {
         int x = 1;
         int y = 2;
         RuutuTyyli tyyli = RuutuTyyli.Hedelma;
-        board.taytaRuutu(x, y, tyyli);
+        board.setRuutu(x, y, tyyli);
         assertEquals(RuutuTyyli.Hedelma, board.getTyyli(x, y));
         board.tyhjennaBoard();
     }
@@ -107,10 +98,17 @@ public class GameBoardTest {
         System.out.println("getTyyli");
         RuutuTyyli expResult = null;
         RuutuTyyli expResult2 = RuutuTyyli.MatoBody;
-        board.taytaRuutu(3, 9, RuutuTyyli.MatoBody);
+        board.setRuutu(3, 9, RuutuTyyli.MatoBody);
         RuutuTyyli result = board.getTyyli(10, 11);
         RuutuTyyli result2 = board.getTyyli(3, 9);
         assertEquals(expResult, result);
         assertEquals(expResult2, result2);
+    }
+    
+    @Test
+    public void testColor(){
+        System.out.println("testaa asettuuko värit oikein ja samalla testaten onko GameBoard olemassa ja luotu oikein.");
+        Color color = board.getBackground();
+        assertEquals(Color.DARK_GRAY, color);
     }
 }

@@ -24,7 +24,7 @@ public class Engine extends JFrame {
     private int pisteet;
     private int hedelmatSyoty;
     
-    protected Engine(LinkedList<Point> mato, LinkedList<Suunta> suunnat){
+    public Engine(LinkedList<Point> mato, LinkedList<Suunta> suunnat){
         this.mato = mato;       
         this.suunnat = suunnat;
         this.kello = new Kello(9.0f);
@@ -187,14 +187,14 @@ public class Engine extends JFrame {
         RuutuTyyli edellinen = board.getTyyli(head.x, head.y); 
         if(edellinen != RuutuTyyli.Hedelma && mato.size() > MIN_MATO_PITUUS){
             Point hanta = mato.removeLast();
-            board.taytaRuutu(hanta, null);
+            board.setRuutu(hanta, null);
             edellinen = board.getTyyli(head.x, head.y);
         }
         
         if(edellinen != RuutuTyyli.MatoBody){
-            board.taytaRuutu(mato.peekFirst(), RuutuTyyli.MatoBody);
+            board.setRuutu(mato.peekFirst(), RuutuTyyli.MatoBody);
             mato.push(head);
-            board.taytaRuutu(head, RuutuTyyli.MatoHead);
+            board.setRuutu(head, RuutuTyyli.MatoHead);
             if(suunnat.size() > 1){
                 suunnat.poll();
             }
@@ -221,7 +221,7 @@ public class Engine extends JFrame {
         
         
         board.tyhjennaBoard();
-        board.taytaRuutu(head, RuutuTyyli.MatoHead);
+        board.setRuutu(head, RuutuTyyli.MatoHead);
         
         if(suunnat.isEmpty()){
             suunnat.add(Suunta.North);
@@ -246,7 +246,7 @@ public class Engine extends JFrame {
                 RuutuTyyli tyyli = board.getTyyli(x, y);
                 if(tyyli == null || tyyli == RuutuTyyli.Hedelma){
                     if(++tyhjaRuutuLoytyi == indeksi){
-                        board.taytaRuutu(x, y, RuutuTyyli.Hedelma);
+                        board.setRuutu(x, y, RuutuTyyli.Hedelma);
                         break;
                     }
                 }
