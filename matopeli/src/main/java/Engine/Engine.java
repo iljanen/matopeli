@@ -8,6 +8,11 @@ import java.util.LinkedList;
 import java.util.Random;
 import javax.swing.JFrame;
 
+/**
+ * Logiikkaluokka, joka käsittelee lähes kaiken pelin logiikan
+ * Luokka luo uuden GameBoardin käynnistyessään
+ * @author Ilja
+ */
 public class Engine extends JFrame {
     
     private static long FRAME_TIME = 1000L / 50L;
@@ -24,6 +29,12 @@ public class Engine extends JFrame {
     private int pisteet;
     private int hedelmatSyoty;
     
+    /**
+     * Konstruktori testejä varten
+     * Imitoi luokan varsinaista konsturktoria ja startPeli-metodia
+     * @param mato Linkitetty lista-parametri madon sijaintia varten
+     * @param suunnat Linkitetty lista- parametri madon liikkumissuuntaa varten
+     */
     public Engine(LinkedList<Point> mato, LinkedList<Suunta> suunnat){
         this.mato = mato;       
         this.suunnat = suunnat;
@@ -35,6 +46,11 @@ public class Engine extends JFrame {
         this.hedelmatSyoty = 0;
     }
     
+    /**
+     * Varsinainen konstruktori Engine luokalle
+     * alustaa pelin, luo GameBoard-olion
+     * luo madonohjausbufferin 
+     */
     public Engine(){
         super("Matopeli!");
         setLayout(new BorderLayout());
@@ -117,6 +133,10 @@ public class Engine extends JFrame {
         setVisible(true);
     }
     
+    /**
+     * metodi, joka alustaa pelin tarvitsemat parametrit ja siirtyy
+     * loputtomaan looppiin, joka on vastuussa framen ja pelin päivityksestä
+     */
     public void startPeli(){
         this.random = new Random();
         this.mato = new LinkedList<Point>();
@@ -161,6 +181,13 @@ public class Engine extends JFrame {
         }
     }
     
+    /**
+     * Ensin katsoo uusimman valuen suunnat-listalta ja päivittää
+     * madon sijaintia sen mukaan.
+     * Sen jälkeen tarkistaa, törmäsikö mato seinään.
+     * Tämän jälkeen metodi päivittää madon sijainnin.
+     * @return metodi palauttaa Ruututyylin, jolla madon pää päivityksen jälkeen on.
+     */
     public RuutuTyyli paivitaMato(){
         Suunta suunta = suunnat.peekFirst();
         
@@ -202,6 +229,12 @@ public class Engine extends JFrame {
         return edellinen;
     }
     
+    /**
+     * metodi resetoi pelin ja boardin alkuasemaan.
+     * listat tyhjennetään ja populoidaan alkuparametrien mukaan.
+     * GameBoard-instanssi tyhjennetään, Kello-instanssi resetoidaan ja asetetaan
+     * pelikentälle uuden hedelmän ja madon.
+     */
     public void resetPeli(){
         this.onkoHavinnyt = false;
         this.onkoUusiPeli = false;
@@ -254,24 +287,47 @@ public class Engine extends JFrame {
         }
     }
     
+    /**
+     * @return boolean-arvon OnkoUusiPeli.
+     */
     public boolean onkoUusiPeli(){
         return onkoUusiPeli;
     }
+    /**
+     * @return boolean-arvon onkoHavinnyt.
+     */
     public boolean onkoHavinnyt(){
         return onkoHavinnyt;
     }
+    /**
+     * @return boolean-arvon onkoPause.
+     */
     public boolean onkoPause(){
         return onkoPause;
     }
+    /**
+     * @return pisteet-arvon.
+     */
     public int getPisteet(){
         return pisteet;
     }
+    /**
+     * @return syötyjen hedelmien määrän.
+     */
     public int getHedelmat(){
         return hedelmatSyoty;
     }
+    /**
+     * hakee suunnat-listasta ensimmäisen (pää)arvon.
+     * @return listan ensimmäisen arvon.
+     */
     public Suunta getSuunta(){
         return suunnat.peek();
     }
+    /**
+     * hakee mato-listasta ensimmäisen arvon ja palauttaa sen.
+     * @return mato-listan ensimmäinen arvo.
+     */
     public Point getSijainti(){
         return (mato.peekFirst());
     }
