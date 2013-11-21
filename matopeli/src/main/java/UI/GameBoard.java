@@ -4,7 +4,14 @@ import Engine.Engine;
 import java.awt.*;
 import javax.swing.JPanel;
 
+/**
+ * Luokka on vastuussa pelikentän sisällön näyttämisestä ja hallinnasta.
+ * @author Ilja
+ */
 public class GameBoard extends JPanel {
+    /**
+     *
+     */
     public static final int RIVIT = 25;
     public static final int KOLUMNIT = 25;
     public static final int RUUDUN_KOKO = 20;
@@ -14,6 +21,11 @@ public class GameBoard extends JPanel {
     public static final Font font = new Font("Tahoma", Font.BOLD, 25);
     private Engine peli;
     private RuutuTyyli[] ruudut;
+    
+    /**
+     * Konstruktori, joka luo uuden GameBoardin.
+     * @param engine Engine-luokan instanssi, jolle GameBoard luodaan.
+     */
     public GameBoard(Engine engine){
         this.peli = engine;
         this.ruudut = new RuutuTyyli[RIVIT * KOLUMNIT];
@@ -22,6 +34,13 @@ public class GameBoard extends JPanel {
         setBackground(Color.DARK_GRAY);
     }
     
+    /**
+     * Käy loopissa läpi GameBoardin ruudut ja piirtää ne, jos tuudun tyyppi ei
+     * ole null.
+     * Piirtää myös ruudukonpelikentälle ja neliön rajat kentän ympärille.
+     * Kirjoittaa taustalle myös pelin statustekstin, riippuen pelin statuksesta.
+     * @param graph
+     */
     @Override
     public void paintComponent(Graphics graph){
         super.paintComponent(graph);
@@ -68,6 +87,16 @@ public class GameBoard extends JPanel {
         }
     }
     
+    /**
+     * piirtää ruudun sisällön.
+     * Piirtää yhden ruudun hedelmän ja madon hännän tapauksessa.
+     * Madon pään tapauksessa tarkistaa madon pään nykyisen suunnan ja piirtää 
+     * sille silmät suunnan mukaan.
+     * @param x ruudun x-koordinaatti.
+     * @param y ruudun y-koordinaatti.
+     * @param tyyli ruudun sisältö RuutuTyylin mukaan.
+     * @param graph Grafiikka-luokka piirtämiseen.
+     */
     public void piirraRuutu(int x, int y, RuutuTyyli tyyli, Graphics graph){
         switch(tyyli){
             case Hedelma:
@@ -116,16 +145,32 @@ public class GameBoard extends JPanel {
         }
     }
     
+    /**
+     * metodi tyhjentää boardin kaikista ruuduista ja asettaa niille arvoksi null.
+     */
     public void tyhjennaBoard(){
         for( int i = 0; i < ruudut.length; i++){
             ruudut[i] = null;
         }
     }
     
+    /**
+     * Asettaa ruudun annettuihin koordinaatteihin listassa.
+     * @param piste ruudun koordinaatit
+     * @param tyyli ruudun sisältö
+     */
     public void setRuutu(Point piste, RuutuTyyli tyyli){
         setRuutu(piste.x, piste.y, tyyli);
     }
     
+    /**
+     * Asettaa ruudun annettuihin koordinaatteihin listassa.
+     * Metodi suoritetaan edellisessä metodissa, Point-parametri rikotaan x:ään ja
+     * y:hyn.
+     * @param x ruudun x-koordinaatti
+     * @param y ruudun y-koordinaatti
+     * @param tyyli ruudun sisältö
+     */
     public void setRuutu(int x, int y, RuutuTyyli tyyli){
         ruudut[y * RIVIT + x] = tyyli;
     }
