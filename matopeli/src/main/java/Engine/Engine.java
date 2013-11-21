@@ -2,6 +2,7 @@ package Engine;
 
 import UI.GameBoard;
 import UI.RuutuTyyli;
+import UI.StatsBoard;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
@@ -20,6 +21,7 @@ public class Engine extends JFrame {
     private static int MAX_SUUNNAT = 3;
     private Kello kello;
     private GameBoard board;
+    private StatsBoard stats;
     private Random random;
     private boolean onkoUusiPeli;
     private boolean onkoHavinnyt;
@@ -28,6 +30,7 @@ public class Engine extends JFrame {
     private LinkedList<Suunta> suunnat;
     private int pisteet;
     private int hedelmatSyoty;
+    private int seuraavanHedelmanPisteet;
     
     /**
      * Konstruktori testejä varten
@@ -40,10 +43,12 @@ public class Engine extends JFrame {
         this.suunnat = suunnat;
         this.kello = new Kello(9.0f);
         this.board = new GameBoard(this);
+        this.stats = new StatsBoard(this);
         this.onkoUusiPeli = true;
         this.onkoHavinnyt = false;
         this.pisteet = 0;
         this.hedelmatSyoty = 0;
+        
     }
     
     /**
@@ -58,8 +63,10 @@ public class Engine extends JFrame {
         setResizable(false);
         
         this.board = new GameBoard(this);
+        this.stats = new StatsBoard(this);
         
         add(board, BorderLayout.CENTER);
+        add(stats, BorderLayout.EAST);
         
         addKeyListener(new KeyAdapter() {
             @Override
@@ -155,6 +162,7 @@ public class Engine extends JFrame {
             }
             
             board.repaint();
+            stats.repaint();
             
             long delta = (System.nanoTime() - aloita) / 1000000L;
             if(delta < FRAME_TIME){
@@ -173,11 +181,13 @@ public class Engine extends JFrame {
         
         if(tormays == RuutuTyyli.Hedelma){
             hedelmatSyoty++;
-            pisteet ++;
+            pisteet += seuraavanHedelmanPisteet;
             uusiHedelma();
         }else if(tormays == RuutuTyyli.MatoBody){
             onkoHavinnyt = true;
             kello.setPause(true);
+        }else if(seuraavanHedelmanPisteet > 10){
+            seuraavanHedelmanPisteet--;
         }
     }
     
@@ -270,6 +280,8 @@ public class Engine extends JFrame {
     
     private void uusiHedelma(){
         
+        this.seuraavanHedelmanPisteet = 100;
+        
         int indeksi = random.nextInt(GameBoard.KOLUMNIT * GameBoard.RIVIT - mato.size());
         
         int tyhjaRuutuLoytyi = -1;
@@ -316,6 +328,12 @@ public class Engine extends JFrame {
      */
     public int getHedelmat(){
         return hedelmatSyoty;
+    }
+    /**
+     * @return seuraavan hedelmän pisteiden määrä.
+     */
+    public int getSeuraavanHedelmanPisteet(){
+        return seuraavanHedelmanPisteet;
     }
     /**
      * hakee suunnat-listasta ensimmäisen (pää)arvon.
