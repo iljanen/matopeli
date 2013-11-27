@@ -100,8 +100,7 @@ public class GameBoard extends JPanel {
     public void piirraRuutu(int x, int y, RuutuTyyli tyyli, Graphics graph){
         switch(tyyli){
             case Hedelma:
-                graph.setColor(Color.ORANGE);
-                graph.fillOval(x + 2, y + 2, RUUDUN_KOKO - 4, RUUDUN_KOKO - 4);
+                tyyli.drawImage(graph, x, y);
                 break;
             case MatoBody:
                 graph.setColor(Color.GREEN);
