@@ -21,7 +21,7 @@ public class StatsBoard extends JPanel{
     private static final int OHJAUS_ETAISYYS = 320;    
     private static final int TEKSTI_ETAISYYS = 30;       
     private static final int PIENI_ETAISYYS = 30;       
-    private static final int PITKÄ_ETAISYYS = 50;
+    private static final int PITKA_ETAISYYS = 50;
     
     @Override
     public void paintComponent(Graphics graph){
@@ -38,15 +38,18 @@ public class StatsBoard extends JPanel{
         graph.setFont(PIENI);
         
         int piirraY = STATISTIIKKA_ETAISYYS;
-        graph.drawString("Pisteet: " + engine.getPisteet(), PITKÄ_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
-        graph.drawString("Hedelmiä syöty: "+ engine.getHedelmat(), PITKÄ_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
-        graph.drawString("Tämän hedelmän pisteet: "+ engine.getSeuraavanHedelmanPisteet(), PITKÄ_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        graph.drawString("Pisteet: " + engine.getPisteet(), PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        graph.drawString("Hedelmiä syöty: "+ engine.getHedelmat(), PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        graph.drawString("Tämän hedelmän pisteet: "+ engine.getSeuraavanHedelmanPisteet(), PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        if(engine.getOnkoIsoHedelma() == true){
+            graph.drawString("Ison hedelmän pisteet: "+ engine.getSeuraavanIsonHedelmanPisteet(), PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        }
         
         piirraY = OHJAUS_ETAISYYS;
-        graph.drawString("YLÖS: W / nuolinäppäin", PITKÄ_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
-        graph.drawString("ALAS: S / nuolinäppäin", PITKÄ_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
-        graph.drawString("VASEN: A / nuolinäppäin", PITKÄ_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
-        graph.drawString("OIKEA: D / nuolinäppäin", PITKÄ_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
-        graph.drawString("TAUKO: P", PITKÄ_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        graph.drawString("YLÖS: W / nuolinäppäin", PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        graph.drawString("ALAS: S / nuolinäppäin", PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        graph.drawString("VASEN: A / nuolinäppäin", PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        graph.drawString("OIKEA: D / nuolinäppäin", PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
+        graph.drawString("TAUKO: P", PITKA_ETAISYYS, piirraY += TEKSTI_ETAISYYS);
     }
 }

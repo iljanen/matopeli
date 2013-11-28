@@ -31,7 +31,7 @@ public class GameBoard extends JPanel {
         this.ruudut = new RuutuTyyli[RIVIT * KOLUMNIT];
         
         setPreferredSize(new Dimension(KOLUMNIT * RUUDUN_KOKO, RIVIT * RUUDUN_KOKO));
-        setBackground(Color.DARK_GRAY);
+        setBackground(Color.GRAY);
     }
     
     /**
@@ -101,6 +101,14 @@ public class GameBoard extends JPanel {
         switch(tyyli){
             case Hedelma:
                 tyyli.drawImage(graph, x, y);
+                break;
+            case IsoHedelma:
+                graph.setColor(Color.RED);
+                graph.fillOval(x , y, RUUDUN_KOKO, RUUDUN_KOKO);
+                break;
+            case LyhentavaHedelma:
+                graph.setColor(Color.BLUE);
+                graph.fillOval(x+2, y+2, RUUDUN_KOKO-4, RUUDUN_KOKO-4);
                 break;
             case MatoBody:
                 graph.setColor(Color.GREEN);

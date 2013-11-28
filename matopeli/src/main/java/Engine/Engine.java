@@ -5,6 +5,7 @@ import UI.RuutuTyyli;
 import UI.StatsBoard;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 import javax.swing.JFrame;
@@ -28,9 +29,12 @@ public class Engine extends JFrame {
     private boolean onkoPause;
     private LinkedList<Point> mato;
     private LinkedList<Suunta> suunnat;
+    private ArrayList<RuutuTyyli> hedelmat;
     private int pisteet;
     private int hedelmatSyoty;
     private int seuraavanHedelmanPisteet;
+    private int seuraavanIsonHedelmanPisteet;
+    private boolean onkoIsoHedelma;
     
     /**
      * Konstruktori testejä varten
@@ -64,9 +68,14 @@ public class Engine extends JFrame {
         
         this.board = new GameBoard(this);
         this.stats = new StatsBoard(this);
+        this.hedelmat = new ArrayList<RuutuTyyli>();
         
         add(board, BorderLayout.CENTER);
         add(stats, BorderLayout.EAST);
+        
+        
+        hedelmat.add(RuutuTyyli.IsoHedelma);
+        hedelmat.add(RuutuTyyli.LyhentavaHedelma);
         
         addKeyListener(new KeyAdapter() {
             @Override
@@ -150,6 +159,7 @@ public class Engine extends JFrame {
         this.suunnat = new LinkedList<Suunta>();
         this.onkoUusiPeli = true;
         this.kello = new Kello(9.0f);
+        
                
         kello.setPause(true);
         
@@ -183,10 +193,30 @@ public class Engine extends JFrame {
             hedelmatSyoty++;
             pisteet += seuraavanHedelmanPisteet;
             uusiHedelma();
-        }else if(tormays == RuutuTyyli.MatoBody){
+        }
+        if(tormays == RuutuTyyli.Hedelma && (hedelmatSyoty % 5) == 0){
+            uusiRandomHedelma();
+        }
+        if(tormays == RuutuTyyli.IsoHedelma){
+            this.onkoIsoHedelma = false;
+            hedelmatSyoty++;
+            pisteet += seuraavanIsonHedelmanPisteet;
+        }
+        if(tormays == RuutuTyyli.LyhentavaHedelma){
+            hedelmatSyoty++;
+            for(int i = 0; i < 3; i++){
+                Point hanta = mato.removeLast();
+                board.setRuutu(hanta, null);
+            }
+        }
+        if(seuraavanIsonHedelmanPisteet > 100){
+            seuraavanIsonHedelmanPisteet = seuraavanIsonHedelmanPisteet -20;
+        }
+        if(tormays == RuutuTyyli.MatoBody){
             onkoHavinnyt = true;
             kello.setPause(true);
-        }else if(seuraavanHedelmanPisteet > 10){
+        }
+        if(seuraavanHedelmanPisteet > 10){
             seuraavanHedelmanPisteet--;
         }
     }
@@ -299,6 +329,28 @@ public class Engine extends JFrame {
         }
     }
     
+    private void uusiRandomHedelma(){
+        this.seuraavanIsonHedelmanPisteet = 1000;
+        int indeksi = random.nextInt(GameBoard.KOLUMNIT * GameBoard.RIVIT - mato.size());
+        int tyhjaLoytyi = -1;
+        
+        RuutuTyyli satunnainen = hedelmat.get(random.nextInt(hedelmat.size()));
+        if(satunnainen == RuutuTyyli.IsoHedelma){
+            this.onkoIsoHedelma = true;
+        }
+        for(int x = 0; x <GameBoard.KOLUMNIT; x++){
+            for(int y = 0; y < GameBoard.RIVIT; y++){
+                RuutuTyyli tyyli = board.getTyyli(x, y);
+                if(tyyli == null || tyyli == RuutuTyyli.Hedelma){
+                    if(++tyhjaLoytyi == indeksi){
+                        board.setRuutu(x, y, satunnainen);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
     /**
      * @return boolean-arvon OnkoUusiPeli.
      */
@@ -334,6 +386,14 @@ public class Engine extends JFrame {
      */
     public int getSeuraavanHedelmanPisteet(){
         return seuraavanHedelmanPisteet;
+    }
+    
+    public int getSeuraavanIsonHedelmanPisteet(){
+        return seuraavanIsonHedelmanPisteet;
+    }
+    
+    public boolean getOnkoIsoHedelma(){
+        return onkoIsoHedelma;
     }
     /**
      * hakee suunnat-listasta ensimmäisen (pää)arvon.

@@ -9,6 +9,10 @@ import java.awt.Graphics;
 public enum RuutuTyyli {
     Hedelma("fruit.png"),
     
+    IsoHedelma,
+    
+    LyhentavaHedelma,
+    
     MatoHead,
     
     MatoBody;
