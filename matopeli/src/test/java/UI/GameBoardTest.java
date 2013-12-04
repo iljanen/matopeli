@@ -46,8 +46,10 @@ public class GameBoardTest {
         int x = 3;
         int y = 4;
         Graphics graph = engine.getGraphics();
-        board.piirraRuutu(x, y, RuutuTyyli.Hedelma, graph);
-        assertEquals(Color.ORANGE, graph.getColor());
+        board.piirraRuutu(x, y, RuutuTyyli.IsoHedelma, graph);
+        assertEquals(Color.RED, graph.getColor());
+        board.piirraRuutu(x+1, y+1, RuutuTyyli.LyhentavaHedelma, graph);
+        assertEquals(Color.BLUE, graph.getColor());
     }
 
     /**
@@ -109,6 +111,6 @@ public class GameBoardTest {
     public void testColor(){
         System.out.println("testaa asettuuko värit oikein ja samalla testaten onko GameBoard olemassa ja luotu oikein.");
         Color color = board.getBackground();
-        assertEquals(Color.DARK_GRAY, color);
+        assertEquals(Color.GRAY, color);
     }
 }
