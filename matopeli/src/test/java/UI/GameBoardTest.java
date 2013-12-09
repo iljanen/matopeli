@@ -2,7 +2,9 @@
 package UI;
 
 import Engine.Engine;
+import Engine.Suunta;
 import java.awt.*;
+import java.util.LinkedList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,10 +48,8 @@ public class GameBoardTest {
         int x = 3;
         int y = 4;
         Graphics graph = engine.getGraphics();
-        board.piirraRuutu(x, y, RuutuTyyli.IsoHedelma, graph);
-        assertEquals(Color.RED, graph.getColor());
-        board.piirraRuutu(x+1, y+1, RuutuTyyli.LyhentavaHedelma, graph);
-        assertEquals(Color.BLUE, graph.getColor());
+        board.piirraRuutu(x, y, RuutuTyyli.MatoBody, graph);
+        assertEquals(Color.GREEN, graph.getColor());
     }
 
     /**
