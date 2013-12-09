@@ -7,7 +7,7 @@ import java.awt.Graphics;
 * @author Ilja
 */
 public enum RuutuTyyli {
-    Hedelma("fruit.png"),
+    Hedelma,
     
     IsoHedelma,
     
@@ -29,6 +29,14 @@ public enum RuutuTyyli {
         Picture pic = null;
         if(this == Hedelma){
             pic = new Picture("fruit.png");
+            pic.piirra(graph, x, y);
+        }
+        if(this == IsoHedelma){
+            pic = new Picture("red_fruit.png");
+            pic.piirra(graph, x, y);
+        }
+        if(this == LyhentavaHedelma){
+            pic = new Picture("blue_fruit.png");
             pic.piirra(graph, x, y);
         }
         
