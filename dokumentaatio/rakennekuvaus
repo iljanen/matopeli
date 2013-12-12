@@ -1,0 +1,21 @@
+Main: Main luokka, joka ainoastaan luo Engine-instanssin ja pistää peliloopin pyörimään.
+
+Engine: Luokka hoitaa lähes kaiken logiikan. Konstruktori luo tarvittavat instanssit ja alustaa peliohjaussysteemin ja 
+        luo ikkunan peliä varten.
+        Luokasta löytyvät tarvittavat metodit ohjausta, sääntöjä ja pelilooppia varten.
+        
+GameBoard: Tämä luokka hoitaa peli-ikkunan täytön, ja piirtää kaikki visuaaliset ominaisuudet. Käyttää RuutuTyyli-luokkaa
+           hedelmien kuvien piirtämiseen tiedostosta.
+           
+RuutuTyyli: Enum-luokka, joka sisältää kaikki mahdolliset hedelmävaihtoehdot piirrettäväksi, sekä madon muodot. Luokka
+            sisältää myös metodin kuvan piirtämiseen tiedostosta Picture-luokan avulla.
+            
+Picture: Luokka lataa tiedostosta kuvat ja vie sen RuutuTyyli-luokalle piirrettäväksi GameBoardille.
+
+StatsBoard: Luokka luo sivupaneelin peli-ikkunalle ja sisältää ohjausohjeet, pisteet, syötyjen hedelmien määrän ja 
+            seuraavasta hedelmästä saatavien pisteiden määrän. Jos pelissä on myös erikoinen punainen hedelmä, niin 
+            näyttää myös siitä saatavat pisteet erikseen.
+            
+Suunta: Enum-luokka, joka sisältää kaikki mahdolliset suuntavaihtoehdot madon liikkumista varten.
+
+Kello: Enginen käyttämä luokka, joka huolehtii ajan laskemisesta pelin päivitystä varten.
