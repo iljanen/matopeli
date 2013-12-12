@@ -1,0 +1,6 @@
+1. Mene osoitteeseen https://github.com/iljanen/matopeli ja lataa Download zip-painikkeen avulla ohjelma.
+2. Kun ohjelma on ladattu koneelle, mene ladattuun hakemistoon ja etsi matopeli.jar-tiedosto.
+3. Tuplaklikkaamalla .jar-tiedostoa peli käynnistyy. 
+4. Peliä ohjataan W,A,S,D tai nuolinäppäinten avulla. P-näppäimellä saat pelin pauselle ja ja Enteriä käytetään pelin
+   aloittamista varten.
+5. Kun ohjelma on käynnistynyt, painamalla Enteriä peli käynnistyy ja voit nauttia Matopelistä!
